@@ -1,0 +1,32 @@
+package StateMachine
+
+////////////////////////////////////////////
+// TransitionResult
+////////////////////////////////////////////
+type TransitionResult struct {
+	Ok bool
+}
+
+////////////////////////////////////////////
+// TransitionHandler
+////////////////////////////////////////////
+type TransitionHandler func(args map[string]interface{}) (TransitionResult)
+
+////////////////////////////////////////////
+// Transition
+////////////////////////////////////////////
+type Transition struct {
+	id uint
+	name string
+	
+	Destination State
+	Handler TransitionHandler
+}
+
+func (t Transition) Id() uint {
+	return t.id
+}
+
+func (t Transition) Name() string {
+	return t.name
+}

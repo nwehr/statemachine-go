@@ -1,14 +1,14 @@
 package main
 
 import "fmt"
-import "statemachine"
+import "StateMachine"
 
 func main() {
-	sm := statemachine.Load()
+	sm := StateMachine.Load()
 	
-	fmt.Println(sm.State().Id())
+	fmt.Println(sm.State.Name())
 	
-	sm.Next(sm.State().Transitions()[0])
+	sm.Next(sm.State.Transitions[0])
 	
-	fmt.Println(sm.State().Id())
+	fmt.Println(sm.State.Name())
 }
