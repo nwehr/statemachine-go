@@ -3,22 +3,23 @@ package StateMachine
 ////////////////////////////////////////////
 // StateMachine
 ////////////////////////////////////////////
-type StateMachine struct {
-	id uint
-	name string
-	
-	State State
-	Args map[string]interface{}
+type StateMachine interface {
+	State() State
+	Next(Transition)
 }
 
-func (sm StateMachine) Id() uint {
-	return sm.id
+////////////////////////////////////////////
+// ImplStateMachine
+////////////////////////////////////////////
+type ImplStateMachine struct {
+	state State
+	args map[string]interface{}
 }
 
-func (sm StateMachine) Name() string {
-	return sm.name
+func (this ImplStateMachine) State() State {
+	return this.state
 }
 
-func (sm *StateMachine) Next(t Transition) {
-	sm.State = t.Destination
+func (this *ImplStateMachine) Next(t Transition) {
+	this.state = t.Destination()
 }

@@ -7,3 +7,19 @@ type Unique interface {
 	Id() uint
 	Name() string
 }
+
+////////////////////////////////////////////
+// ImplUnique
+////////////////////////////////////////////
+type ImplUnique struct {
+	id uint
+	name string
+}
+
+func (this ImplUnique) Id() uint {
+	return this.id
+}
+
+func (this ImplUnique) Name() string {
+	return this.name
+}

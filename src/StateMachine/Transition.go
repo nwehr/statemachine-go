@@ -5,28 +5,34 @@ package StateMachine
 ////////////////////////////////////////////
 type TransitionResult struct {
 	Ok bool
+	Msg string
 }
 
 ////////////////////////////////////////////
 // TransitionHandler
 ////////////////////////////////////////////
-type TransitionHandler func(args map[string]interface{}) (TransitionResult)
+type TransitionHandler func(args map[string]interface{}) TransitionResult
 
 ////////////////////////////////////////////
 // Transition
 ////////////////////////////////////////////
-type Transition struct {
-	id uint
-	name string
-	
-	Destination State
-	Handler TransitionHandler
+type Transition interface {
+	Destination() State
+	Handle(map[string]interface{}) TransitionResult
 }
 
-func (t Transition) Id() uint {
-	return t.id
+////////////////////////////////////////////
+// ImplTransition
+////////////////////////////////////////////
+type ImplTransition struct {
+	destination State
+	handler TransitionHandler
 }
 
-func (t Transition) Name() string {
-	return t.name
+func (this ImplTransition) Destination() State {
+	return this.destination
+}
+
+func (this ImplTransition) Handle(args map[string]interface{}) TransitionResult {
+	return this.handler(args)
 }

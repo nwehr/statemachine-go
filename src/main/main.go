@@ -1,14 +1,20 @@
 package main
 
-import "fmt"
+import _ "fmt"
 import "StateMachine"
 
 func main() {
 	sm := StateMachine.Load()
+
+	{
+		unique, _ := sm.State().(StateMachine.Unique)
+		println(unique.Name())
+	}
 	
-	fmt.Println(sm.State.Name())
+	sm.Next(sm.State().Transitions()[0])
 	
-	sm.Next(sm.State.Transitions[0])
-	
-	fmt.Println(sm.State.Name())
+	{
+		unique, _ := sm.State().(StateMachine.Unique)
+		println(unique.Name())
+	}
 }

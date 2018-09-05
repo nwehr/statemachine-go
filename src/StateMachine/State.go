@@ -3,17 +3,17 @@ package StateMachine
 ////////////////////////////////////////////
 // State
 ////////////////////////////////////////////
-type State struct {
-	id uint
-	name string
-
-	Transitions []Transition
+type State interface {
+	Transitions() []Transition
 }
 
-func (s State) Id() uint {
-	return s.id
+////////////////////////////////////////////
+// ImplState
+////////////////////////////////////////////
+type ImplState struct {
+	transitions []Transition
 }
 
-func (s State) Name() string {
-	return s.name
+func (this ImplState) Transitions() []Transition {
+	return this.transitions
 }
